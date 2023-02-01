@@ -12,6 +12,8 @@ CREATE TABLE medical_histories (
     UNIQUE (patient_id)
 );
 
+CREATE INDEX idx_patient_id ON medical_histories (patient_id ASC);
+
 CREATE TABLE invoices (
     id SERIAL PRIMARY KEY,
     total_amount DECIMAL,
@@ -21,6 +23,7 @@ CREATE TABLE invoices (
     UNIQUE (medical_history_id)
 );
 
+CREATE INDEX idx_medical_history_id ON invoices (medical_history_id ASC);
 
 CREATE TABLE treatments (
     id SERIAL PRIMARY KEY,
@@ -44,3 +47,5 @@ CREATE TABLE invoice_items (
     UNIQUE (invoice_id, treatment_id)
 );
 
+CREATE INDEX idx_invoice_id ON invoice_items (invoice_id ASC);
+CREATE INDEX idx_treatment_id ON invoice_items (treatment_id ASC);
