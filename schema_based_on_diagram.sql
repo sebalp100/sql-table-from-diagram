@@ -20,3 +20,27 @@ CREATE TABLE invoices (
     medical_history_id INTEGER REFERENCES medical_histories(id) ON DELETE CASCADE,
     UNIQUE (medical_history_id)
 );
+
+
+CREATE TABLE treatments (
+    id SERIAL PRIMARY KEY,
+    type VARCHAR(150),
+    name VARCHAR(100)
+);
+
+CREATE TABLE medical_history_treatments (
+    medical_history_id INTEGER REFERENCES medical_histories(id) ON DELETE CASCADE,
+    treatment_id INTEGER REFERENCES treatments(id) ON DELETE CASCADE,
+    UNIQUE (medical_history_id, treatment_id)
+);
+
+CREATE TABLE invoice_items (
+    id SERIAL PRIMARY KEY,
+    unit_price DECIMAL,
+    quantity INTEGER,
+    total_price DECIMAL,
+    invoice_id INTEGER REFERENCES invoices(id) ON DELETE CASCADE,
+    treatment_id INTEGER REFERENCES treatments(id) ON DELETE CASCADE,
+    UNIQUE (invoice_id, treatment_id)
+);
+
